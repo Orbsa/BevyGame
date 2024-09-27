@@ -6,7 +6,7 @@ use bevy::{
         camera::RenderTarget,
         render_resource::{
             Extent3d, TextureDescriptor, TextureDimension, TextureFormat, TextureUsages,
-        },
+        }, view::RenderLayers,
     },
 };
 
@@ -84,12 +84,14 @@ pub fn spawn_menu_scene(
             ))),
             directional_light: DirectionalLight {
                 color: Color::rgb(1.0, 0.9, 0.8),
-                illuminance: 15_000.0,
+                illuminance: light_consts::lux::AMBIENT_DAYLIGHT,
                 shadows_enabled: true,
+                
                 ..default()
             },
             ..Default::default()
         },
+        RenderLayers::all() ,
         Name::new("Sun"),
         //MenuItem, // TODO MenuItem
     ));

@@ -74,11 +74,11 @@ pub fn spawn_player_sprite(
 //}
 
 // Once the scene is loaded, start the animation
-pub fn animate_sprites(
-    _animations: Res<Animation>,
+pub fn animations(
+    animations: Res<Animation>,
     mut players: Query<&mut AnimationPlayer, Added<AnimationPlayer>>,
 ) {
-    for _player in &mut players {
-        //player.play(animations.0.clone_weak()).repeat();
+    for mut player in &mut players {
+        player.play(animations.0.clone_weak()).repeat();
     }
 }

@@ -3,7 +3,7 @@ use std::net::SocketAddr;
 use bevy::{ecs::query::QuerySingleError, prelude::*};
 use shared::{netlib::NetworkConnectionTarget, Config};
 
-use crate::{cli::CliArgs, player::Player, states::GameState};
+use crate::{cameras::chat::ChatState, cli::CliArgs, player::Player, states::GameState};
 
 use super::scene::{MenuButton, SelectedButton};
 
@@ -50,11 +50,12 @@ pub fn menu_select(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     _config: Res<shared::Config>,
     mut game_state: ResMut<NextState<GameState>>,
+    chat_state: Res<State<ChatState>>,
     buttons: Query<&MenuButton, With<SelectedButton>>,
     config: Res<Config>,
     mut commands: Commands,
 ) {
-    if !config.just_pressed(&keyboard_input, shared::GameAction::Use) {
+    if !config.just_pressed(&keyboard_input, shared::GameAction::Use) || *chat_state.get() == ChatState::Chatting {
         return;
     }
 

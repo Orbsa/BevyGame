@@ -1,7 +1,7 @@
 use self::systems::{check_autoconnect_cli, check_is_next_to_button, menu_select};
 use crate::{
     despawn_all_component,
-    player::{animate_sprites, spawn_player_sprite},
+    player::{animations, spawn_player_sprite},
     states::GameState,
 };
 use bevy::prelude::*;
@@ -24,7 +24,7 @@ impl Plugin for MenuPlugin {
                 check_autoconnect_cli,
             ),
         )
-        .add_systems(Update, animate_sprites)
+        .add_systems(Update, animations)
         .add_systems(
             Update,
             (menu_select, check_is_next_to_button)
